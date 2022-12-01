@@ -1,30 +1,84 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div v-if="!getLayout" class="splash">
+    <img src="../src/assets/logo.svg" />
   </div>
-  <router-view/>
+  <app-layout class="app" v-if="getLayout === 'app'"></app-layout>
+  <router-view v-else v-slot="{Component}">
+    <transition name="route" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 </template>
 
+<script>
+import AppLayout from "./views/screens/layout/AppLayout";
+import StoreUtils from "./utils/baseUtils/StoreUtils";
+export default {
+  components:{AppLayout},
+  computed: {
+    getLayout() {
+      return this.$route.meta.layout
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.getLayout()
+    },500)
+
+    if(localStorage.customerId)StoreUtils.dispatch(StoreUtils.actions.auth.readCustomerById)
+    StoreUtils.dispatch(StoreUtils.actions.app.readCustomerCart)
+  }
+}
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body{
+  scroll-behavior: smooth;
+  transition: .5s linear;
+}
+.splash{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .app{
+   box-sizing: border-box;
+ }
+ .col-3{
+   width: 30%;
+   margin: 0;
+   padding: 0;
+
+ }
+ .col-4{
+   width: 40%;
+ }
+ .col-6{
+   width: 60%;
+ }
+ .col-8{
+   width: 80%;
+ }
+ .col-12{
+   width: 100%;
+ }
+
+/* transition */
+
+.route-enter-from{
+  opacity: 0;
+//transform: translateX(100px);
+}
+.route-enter-active{
+  transition: all 0.2s ease-in;
 }
 
-#nav {
-  padding: 30px;
+.route-leave-to{
+  opacity: 0;
+//transform: translateX(-100px);
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.route-leave-active{
+  transition: all 0.3s ease-out;
 }
 </style>
