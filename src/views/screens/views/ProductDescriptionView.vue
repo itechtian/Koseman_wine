@@ -38,7 +38,7 @@
     </div>
   </div>
     <div :style="width >= 800 ? {marginLeft:INFRASTRUCTURE.spacing.app_default,marginRight:INFRASTRUCTURE.spacing.app_default}:{marginLeft:0,marginRight:0}" class="alternative-categories">
-      <div style="padding: 2%">
+      <div style="margin-top:2%;margin-bottom: 5%">
         <span class="alternative-categories-text">Top list of alternatives</span>
       </div>
       <div class="alternative-categories-card">

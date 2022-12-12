@@ -151,8 +151,8 @@ export const mutations = {
 
 export const actions = {
 
-  readCategories:({commit,state}) => {
-    if(state.categories?.length < 1)commit("updateLoading", true)
+  readCategories:({commit}) => {
+    commit("updateLoading", true)
     return AppService.readCategories().then((response) => {
         commit("updateLoading", false)
         let responseData = response.data
@@ -179,8 +179,8 @@ export const actions = {
     })
   },
 
-  readBrands:({commit,state}) => {
-    if(state.brands?.length < 1)commit("updateLoading", true)
+  readBrands:({commit}) => {
+   commit("updateLoading", true)
     return AppService.readBrands().then((response) => {
         commit("updateLoading", false)
         let responseData = response.data

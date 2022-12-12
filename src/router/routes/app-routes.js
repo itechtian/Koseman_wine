@@ -18,4 +18,10 @@ export default [
         meta: {layout:'app',authRequired:false},
         component:() => import(/* webpackChunkName: "about" */ '../../views/screens/views/CheckOutView')
     },
+    {
+        path: RouterUtils.routers.appView.order_page.path,
+        name: RouterUtils.routers.appView.order_page.name,
+        meta: {layout:'app',authRequired:true},
+        component:() => import(/* webpackChunkName: "about" */ '../../views/screens/views/OrderView')
+    },
 ]

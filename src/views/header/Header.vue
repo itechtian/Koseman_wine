@@ -22,8 +22,8 @@
                 <ul>
                   <li v-if="!username"><a href="user/login">Login</a></li>
                   <ul v-else>
-                    <li>My orders</li>
-                    <li>My WishList</li>
+                    <router-link to="/orders"> <li>My orders</li></router-link>
+                    <router-link to="/onepagecheckout/delivery/"> <li>Cart Items ({{getCartLength}})</li></router-link>
                     <li><a href="user/login">Log out</a></li>
                   </ul>
                 </ul>
@@ -102,6 +102,7 @@ export default {
 
 .show-dropdown:hover ~ .drop-down{
   display: none;
+  z-index: 999999999999999;
 }
 
 .show{
@@ -123,6 +124,7 @@ export default {
   transition: .5s ease-in;
   box-shadow: 0px 20.2109px 40.4219px -6.73698px #F6F6F6;
   border-radius: 10px;
+  z-index: 9999999999999999999;
 }
 
 .drop-down ul{

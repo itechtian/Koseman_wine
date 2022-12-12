@@ -24,6 +24,10 @@ class RouterUtils {
       check_out:{
         path:'/onepagecheckout/delivery/',
         name:'CHECKOUT'
+      },
+      order_page:{
+        path:'/orders',
+        name:'ORDER'
       }
     }
   };

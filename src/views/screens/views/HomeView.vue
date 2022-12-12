@@ -2,8 +2,8 @@
   <div>
     <div>
       <div class="desktop-display">
-        <hero-card :product-image="categoryProduct?.data?.productImage" :product-discount="categoryProduct?.data?.productDiscount" :wine_prize="categoryProduct?.data?.productSellingPrice" :wine_name="categoryProduct?.data?.productName" line-width="174px" line-height="55px" line-top="0" line-left="190px" />
-        <hero-card :product-image="categoryProduct?.data?.productImage" :product-discount="categoryProduct?.data?.productDiscount" :wine_prize="categoryProduct?.data?.productSellingPrice" :wine_name="categoryProduct?.data?.productName" line-width="174px" line-height="15px" line-top="0" line-left="0px"/>
+        <hero-card  @click="toDescriptionPage(categoryProduct?.data[0])" :product-image="categoryProduct?.data[0]?.productImage" :product-discount="categoryProduct?.data[0]?.productDiscount" :wine_prize="categoryProduct?.data[0]?.productSellingPrice" :wine_name="categoryProduct?.data[0]?.productName" line-width="174px" line-height="55px" line-top="0" line-left="190px" />
+        <hero-card @click="toDescriptionPage(categoryProduct?.data[1])" :product-image="categoryProduct?.data[1]?.productImage" :product-discount="categoryProduct?.data[1]?.productDiscount" :wine_prize="categoryProduct?.data[1]?.productSellingPrice" :wine_name="categoryProduct?.data[1]?.productName" line-width="174px" line-height="15px" line-top="0" line-left="0px"/>
       </div>
       <div class="caro">
         <div class="controls"></div>
@@ -91,6 +91,7 @@ import StoreUtils from "../../../utils/baseUtils/StoreUtils";
 import AppRequest from "../../../model/request/appRequest";
 import {mapState} from "vuex";
 import {formatAmount} from "../../../functionComponents";
+import router from "../../../router";
 const width = innerWidth
 export default {
   name: 'Home',
@@ -114,6 +115,12 @@ export default {
   },
 
   methods:{
+    toDescriptionPage(obj){
+      StoreUtils.commit(StoreUtils.mutations.app.updatePreCart, obj)
+      router.push({path:`/wines/${obj.productSlug}/`}).then()
+      localStorage.productId = obj.productId
+      StoreUtils.dispatch(StoreUtils.actions.app.updateSelectedHistory, obj.productId)
+    },
     doFilter(){
       this.filterModel.productMinSellingPrice = "3000"
       this.filterModel.productMaxSellingPrice = this.max
@@ -289,6 +296,7 @@ section{
   background: #FFFFFF;
   /*padding-top: 2%;*/
   padding-bottom: 2%;
+  margin-bottom: 5%;
 }
 
 .product-area{
